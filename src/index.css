@@ -2,39 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* After Church Blockhauss Design System - Colors inspired by event imagery
+All colors MUST be HSL for consistency.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core brand colors - inspired by the event imagery */
+    --background: 220 25% 5%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 260 40% 8%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 260 40% 8%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Rich purple/magenta from the event branding */
+    --primary: 280 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 280 100% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Deep blue accent */
+    --secondary: 220 40% 15%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 260 20% 12%;
+    --muted-foreground: 220 15% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent: Golden yellow for highlights */
+    --accent: 45 95% 58%;
+    --accent-foreground: 220 25% 5%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 260 30% 18%;
+    --input: 260 30% 18%;
+    --ring: 280 85% 60%;
+
+    /* Custom gradients for After Church Blockhauss */
+    --gradient-primary: linear-gradient(135deg, hsl(280 85% 60%), hsl(320 80% 65%));
+    --gradient-secondary: linear-gradient(45deg, hsl(220 40% 15%), hsl(260 40% 20%));
+    --gradient-accent: linear-gradient(90deg, hsl(45 95% 58%), hsl(35 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(280 85% 60%) 0%, hsl(260 70% 45%) 35%, hsl(220 60% 25%) 100%);
+
+    /* Animation and effect colors */
+    --glow-primary: 280 100% 75%;
+    --glow-accent: 45 100% 70%;
+    
+    /* Shadows with brand colors */
+    --shadow-glow: 0 0 40px hsl(var(--glow-primary) / 0.4);
+    --shadow-accent-glow: 0 0 30px hsl(var(--glow-accent) / 0.3);
+    --shadow-soft: 0 10px 30px -10px hsl(280 50% 20% / 0.5);
 
     --radius: 0.5rem;
 
@@ -101,5 +122,81 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations and effects for After Church Blockhauss */
+@layer components {
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+    transition: all 0.3s ease;
+  }
+  
+  .glow-effect:hover {
+    box-shadow: 0 0 60px hsl(var(--glow-primary) / 0.6);
+    transform: translateY(-2px);
+  }
+  
+  .accent-glow {
+    box-shadow: var(--shadow-accent-glow);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .floating-dots {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .floating-dots::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, hsl(var(--primary-glow) / 0.3) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: float 20s infinite linear;
+    pointer-events: none;
+  }
+  
+  .hero-card {
+    background: linear-gradient(135deg, 
+      hsl(var(--card)) 0%, 
+      hsl(var(--primary) / 0.1) 50%, 
+      hsl(var(--card)) 100%);
+    border: 1px solid hsl(var(--primary) / 0.2);
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
