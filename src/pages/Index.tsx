@@ -1,6 +1,7 @@
 import { CountdownTimer } from '@/components/CountdownTimer';
 import { RegistrationForm } from '@/components/RegistrationForm';
 import { BackgroundEffects } from '@/components/BackgroundEffects';
+import Chatbot from '@/components/Chatbot';
 import { Calendar, MapPin, Heart, Users, Sparkles } from 'lucide-react';
 import heroImage from '@/assets/hero-image.jpg';
 
@@ -117,6 +118,9 @@ const Index = () => {
 
         </div>
       </div>
+      
+      {/* Chatbot */}
+      <Chatbot />
     </main>
   );
 };
