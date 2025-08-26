@@ -41,6 +41,54 @@ export type Database = {
         }
         Relationships: []
       }
+      event_tickets: {
+        Row: {
+          attendance_status: string
+          created_at: string
+          email: string
+          eventbrite_attendee_id: string | null
+          eventbrite_order_id: string | null
+          id: string
+          name: string
+          payment_status: string
+          phone: string | null
+          quantity: number
+          ticket_type: string
+          total_amount: number | null
+          updated_at: string
+        }
+        Insert: {
+          attendance_status?: string
+          created_at?: string
+          email: string
+          eventbrite_attendee_id?: string | null
+          eventbrite_order_id?: string | null
+          id?: string
+          name: string
+          payment_status?: string
+          phone?: string | null
+          quantity?: number
+          ticket_type?: string
+          total_amount?: number | null
+          updated_at?: string
+        }
+        Update: {
+          attendance_status?: string
+          created_at?: string
+          email?: string
+          eventbrite_attendee_id?: string | null
+          eventbrite_order_id?: string | null
+          id?: string
+          name?: string
+          payment_status?: string
+          phone?: string | null
+          quantity?: number
+          ticket_type?: string
+          total_amount?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

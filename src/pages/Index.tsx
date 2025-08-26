@@ -2,6 +2,7 @@ import { CountdownTimer } from '@/components/CountdownTimer';
 import { RegistrationForm } from '@/components/RegistrationForm';
 import { BackgroundEffects } from '@/components/BackgroundEffects';
 import Chatbot from '@/components/Chatbot';
+import EventbriteBooking from '@/components/EventbriteBooking';
 import { Calendar, MapPin, Heart, Users, Sparkles } from 'lucide-react';
 import heroImage from '@/assets/hero-image.jpg';
 
@@ -97,8 +98,30 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Registration Section */}
+          {/* Ticket Booking Section */}
           <section className="animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
+                <Sparkles className="w-8 h-8 inline mr-3" />
+                Réservez votre place
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Sécurisez votre participation à cet événement unique
+              </p>
+            </div>
+            <EventbriteBooking />
+          </section>
+
+          {/* Registration Section */}
+          <section className="mt-16 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold gradient-text mb-4">
+                Ou inscrivez-vous à notre liste
+              </h2>
+              <p className="text-muted-foreground">
+                Recevez les dernières informations sur l'événement
+              </p>
+            </div>
             <div className="max-w-md mx-auto">
               <RegistrationForm />
             </div>
