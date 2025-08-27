@@ -59,6 +59,34 @@ const EventbriteBooking = () => {
     setIsLoading(true);
 
     try {
+      // Call Eventbrite integration for paid tickets
+      let eventbriteOrderId = null;
+      if (calculateTotal() > 0) {
+        const { data: eventbriteResponse, error: eventbriteError } = await supabase.functions.invoke('eventbrite-integration', {
+          body: {
+            action: 'create_order',
+            event_id: '1234567890', // Replace with actual event ID
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim() || undefined,
+            ticket_class_id: formData.ticketType,
+            quantity: formData.quantity
+          }
+        });
+
+        if (eventbriteError || !eventbriteResponse?.success) {
+          console.error('Erreur Eventbrite:', eventbriteError || eventbriteResponse);
+          toast({
+            title: "Erreur de réservation Eventbrite",
+            description: "Impossible de créer la commande sur Eventbrite. Veuillez réessayer.",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        eventbriteOrderId = eventbriteResponse.order_id;
+      }
+
       const ticketData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -67,6 +95,7 @@ const EventbriteBooking = () => {
         quantity: formData.quantity,
         total_amount: calculateTotal(),
         payment_status: calculateTotal() === 0 ? 'completed' : 'pending',
+        eventbrite_order_id: eventbriteOrderId,
       };
 
       const { error } = await supabase
@@ -86,7 +115,7 @@ const EventbriteBooking = () => {
       setIsSuccess(true);
       toast({
         title: "Réservation confirmée !",
-        description: `Votre ticket ${formData.ticketType} a été réservé avec succès.`,
+        description: `Votre ticket ${formData.ticketType} a été réservé avec succès${eventbriteOrderId ? ' sur Eventbrite' : ''}.`,
       });
 
       // Reset form
