@@ -113,16 +113,61 @@ serve(async (req) => {
         )
       }
 
-      return new Response(
-        JSON.stringify({ 
-          success: true, 
-          order: responseData,
-          order_id: responseData.id 
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      // Get order details to retrieve ticket information
+      try {
+        const orderDetailsResponse = await fetch(`${baseUrl}/orders/${responseData.id}/`, {
+          headers
+        })
+
+        let ticketDownloadUrl = null
+        if (orderDetailsResponse.ok) {
+          const orderDetails = await orderDetailsResponse.json()
+          console.log('Order details:', JSON.stringify(orderDetails, null, 2))
+          
+          // Try to get attendees for ticket download
+          if (orderDetails.attendees && orderDetails.attendees.length > 0) {
+            // Eventbrite provides ticket URLs in the attendee data
+            const attendee = orderDetails.attendees[0]
+            if (attendee.ticket_pdf_url) {
+              ticketDownloadUrl = attendee.ticket_pdf_url
+            } else if (attendee.ticket_url) {
+              ticketDownloadUrl = attendee.ticket_url
+            }
+          }
+          
+          // Alternative: construct ticket URL (this is the standard Eventbrite pattern)
+          if (!ticketDownloadUrl && orderDetails.event_id) {
+            ticketDownloadUrl = `https://www.eventbrite.com/mytickets/confirmation?order=${responseData.id}&event=${orderDetails.event_id}`
+          }
         }
-      )
+
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            order: responseData,
+            order_id: responseData.id,
+            ticket_download_url: ticketDownloadUrl
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      } catch (ticketError) {
+        console.error('Error fetching ticket details:', ticketError)
+        // Return success anyway since order was created
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            order: responseData,
+            order_id: responseData.id,
+            ticket_download_url: null,
+            warning: 'Order created but ticket URL could not be retrieved'
+          }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
     }
 
     if (action === 'get_event_info') {

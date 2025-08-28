@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Ticket, CreditCard, Users, Check, Loader2 } from 'lucide-react';
+import { Ticket, CreditCard, Users, Check, Loader2, Download } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
@@ -26,6 +26,7 @@ const EventbriteBooking = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [ticketDownloadUrl, setTicketDownloadUrl] = useState<string | null>(null);
 
   const ticketPrices = {
     standard: 0, // Gratuit
@@ -85,6 +86,7 @@ const EventbriteBooking = () => {
         }
 
         eventbriteOrderId = eventbriteResponse.order_id;
+        setTicketDownloadUrl(eventbriteResponse.ticket_download_url);
       }
 
       const ticketData = {
@@ -141,6 +143,7 @@ const EventbriteBooking = () => {
 
   const startNewBooking = () => {
     setIsSuccess(false);
+    setTicketDownloadUrl(null);
     setFormData({
       name: '',
       email: '',
@@ -162,9 +165,25 @@ const EventbriteBooking = () => {
               <h3 className="text-xl font-bold gradient-text mb-2">
                 Réservation Confirmée !
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground mb-4">
                 Votre ticket a été réservé avec succès. Vous recevrez bientôt un email de confirmation.
               </p>
+              {ticketDownloadUrl && (
+                <div className="hero-card p-4 rounded-lg mb-4">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <Download className="w-5 h-5 text-accent" />
+                    <span className="font-medium">Votre ticket est prêt !</span>
+                  </div>
+                  <Button 
+                    onClick={() => window.open(ticketDownloadUrl, '_blank')}
+                    variant="outline" 
+                    className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Télécharger le ticket PDF
+                  </Button>
+                </div>
+              )}
             </div>
             <Button 
               onClick={startNewBooking} 
