@@ -100,9 +100,11 @@ const EventbriteBooking = () => {
         eventbrite_order_id: eventbriteOrderId,
       };
 
-      const { error } = await supabase
+      const { data: insertedTicket, error } = await supabase
         .from('event_tickets')
-        .insert([ticketData]);
+        .insert([ticketData])
+        .select()
+        .single();
 
       if (error) {
         console.error('Erreur insertion ticket:', error);
@@ -112,6 +114,31 @@ const EventbriteBooking = () => {
           variant: "destructive",
         });
         return;
+      }
+
+      // Generate ticket PDF for all tickets (free and paid)
+      const ticketPdfData = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || undefined,
+        ticket_type: formData.ticketType,
+        quantity: formData.quantity,
+        total_amount: calculateTotal(),
+        ticket_id: insertedTicket.id
+      };
+
+      try {
+        const { data: pdfResponse } = await supabase.functions.invoke('generate-ticket-pdf', {
+          body: ticketPdfData
+        });
+        
+        // Create blob URL for download
+        const blob = new Blob([pdfResponse], { type: 'text/html' });
+        const pdfUrl = URL.createObjectURL(blob);
+        setTicketDownloadUrl(pdfUrl);
+      } catch (pdfError) {
+        console.error('Erreur génération PDF:', pdfError);
+        // Don't fail the whole process if PDF generation fails
       }
 
       setIsSuccess(true);
@@ -175,12 +202,17 @@ const EventbriteBooking = () => {
                     <span className="font-medium">Votre ticket est prêt !</span>
                   </div>
                   <Button 
-                    onClick={() => window.open(ticketDownloadUrl, '_blank')}
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = ticketDownloadUrl;
+                      link.download = `ticket-${Date.now()}.html`;
+                      link.click();
+                    }}
                     variant="outline" 
                     className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Télécharger le ticket PDF
+                    Télécharger le ticket
                   </Button>
                 </div>
               )}
