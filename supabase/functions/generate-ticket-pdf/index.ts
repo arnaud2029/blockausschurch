@@ -183,9 +183,9 @@ serve(async (req) => {
             <div style="font-size: 12px; margin-top: 10px;">Présentez ce ticket à l'entrée</div>
           </div>
 
-          <div class="event-details">
-            <div class="date-time">📅 Dimanche 29 Décembre 2024 - 15h00</div>
-            <div class="location">📍 Blockhauss, Abidjan - Côte d'Ivoire</div>
+           <div class="event-details">
+             <div class="date-time">📅 Dimanche 31 Août 2025 - 15h00</div>
+             <div class="location">📍 Blockhauss, Abidjan - Côte d'Ivoire</div>
             <div style="margin-top: 15px; font-weight: bold; color: #ff6b35;">
               ${ticketData.total_amount === 0 ? '🎁 ENTRÉE GRATUITE' : `💰 ${ticketData.total_amount.toLocaleString()} FCFA`}
             </div>

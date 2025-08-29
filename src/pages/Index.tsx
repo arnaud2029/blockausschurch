@@ -7,8 +7,8 @@ import EventbriteBooking from '@/components/EventbriteBooking';
 import { Calendar, MapPin, Heart, Users, Sparkles, Music, PartyPopper, Palmtree } from 'lucide-react';
 
 const Index = () => {
-  // Event date: 31 août 2025 à 08h00
-  const eventDate = new Date('2025-08-31T08:00:00');
+  // Event date: 31 août 2025 à 15h00
+  const eventDate = new Date('2025-08-31T15:00:00');
 
   return (
     <main className="min-h-screen relative overflow-hidden african-pattern">
@@ -73,7 +73,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4 gradient-text">Quand ?</h3>
                 <p className="text-xl text-foreground font-semibold">31 Août 2025</p>
-                <p className="text-lg text-accent">08h00 pile ⏰</p>
+                <p className="text-lg text-accent">15h00 pile ⏰</p>
                 <p className="text-sm text-muted-foreground mt-2">Soyez ponctuels !</p>
               </div>
               

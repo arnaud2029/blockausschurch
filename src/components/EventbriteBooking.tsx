@@ -60,35 +60,9 @@ const EventbriteBooking = () => {
     setIsLoading(true);
 
     try {
-      // Call Eventbrite integration for paid tickets
-      let eventbriteOrderId = null;
-      if (calculateTotal() > 0) {
-        const { data: eventbriteResponse, error: eventbriteError } = await supabase.functions.invoke('eventbrite-integration', {
-          body: {
-            action: 'create_order',
-            event_id: '1234567890', // Replace with actual event ID
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            phone: formData.phone.trim() || undefined,
-            ticket_class_id: formData.ticketType,
-            quantity: formData.quantity
-          }
-        });
+      console.log('Starting ticket submission...', formData);
 
-        if (eventbriteError || !eventbriteResponse?.success) {
-          console.error('Erreur Eventbrite:', eventbriteError || eventbriteResponse);
-          toast({
-            title: "Erreur de réservation Eventbrite",
-            description: "Impossible de créer la commande sur Eventbrite. Veuillez réessayer.",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        eventbriteOrderId = eventbriteResponse.order_id;
-        setTicketDownloadUrl(eventbriteResponse.ticket_download_url);
-      }
-
+      // First, save ticket data to database
       const ticketData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -97,8 +71,9 @@ const EventbriteBooking = () => {
         quantity: formData.quantity,
         total_amount: calculateTotal(),
         payment_status: calculateTotal() === 0 ? 'completed' : 'pending',
-        eventbrite_order_id: eventbriteOrderId,
       };
+
+      console.log('Inserting ticket data:', ticketData);
 
       const { data: insertedTicket, error } = await supabase
         .from('event_tickets')
@@ -107,7 +82,7 @@ const EventbriteBooking = () => {
         .single();
 
       if (error) {
-        console.error('Erreur insertion ticket:', error);
+        console.error('Database insertion error:', error);
         toast({
           title: "Erreur de réservation",
           description: "Une erreur s'est produite lors de la réservation. Veuillez réessayer.",
@@ -116,35 +91,78 @@ const EventbriteBooking = () => {
         return;
       }
 
-      // Generate ticket PDF for all tickets (free and paid)
+      console.log('Ticket inserted successfully:', insertedTicket);
+
+      // For paid tickets, try Eventbrite integration (optional)
+      let eventbriteOrderId = null;
+      if (calculateTotal() > 0) {
+        try {
+          const { data: eventbriteResponse, error: eventbriteError } = await supabase.functions.invoke('eventbrite-integration', {
+            body: {
+              action: 'create_order',
+              event_id: 'YOUR_EVENTBRITE_EVENT_ID', // Configure this with real event ID
+              name: formData.name.trim(),
+              email: formData.email.trim(),
+              phone: formData.phone.trim() || undefined,
+              ticket_class_id: formData.ticketType,
+              quantity: formData.quantity
+            }
+          });
+
+          if (eventbriteResponse?.success) {
+            eventbriteOrderId = eventbriteResponse.order_id;
+            // Update ticket with Eventbrite order ID
+            await supabase
+              .from('event_tickets')
+              .update({ eventbrite_order_id: eventbriteOrderId })
+              .eq('id', insertedTicket.id);
+          }
+        } catch (eventbriteError) {
+          console.warn('Eventbrite integration failed, but ticket is still reserved:', eventbriteError);
+          // Continue with local ticket generation
+        }
+      }
+
+      // Generate ticket PDF for all tickets
       const ticketPdfData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
-        phone: formData.phone.trim() || undefined,
+        phone: formData.phone.trim() || '',
         ticket_type: formData.ticketType,
         quantity: formData.quantity,
         total_amount: calculateTotal(),
         ticket_id: insertedTicket.id
       };
 
-      try {
-        const { data: pdfResponse } = await supabase.functions.invoke('generate-ticket-pdf', {
-          body: ticketPdfData
+      console.log('Generating PDF with data:', ticketPdfData);
+
+      const { data: pdfResponse, error: pdfError } = await supabase.functions.invoke('generate-ticket-pdf', {
+        body: ticketPdfData
+      });
+
+      if (pdfError) {
+        console.error('PDF generation error:', pdfError);
+        toast({
+          title: "Erreur génération PDF",
+          description: "Le ticket a été réservé mais le PDF n'a pas pu être généré.",
+          variant: "destructive",
         });
-        
-        // Create blob URL for download
-        const blob = new Blob([pdfResponse], { type: 'text/html' });
-        const pdfUrl = URL.createObjectURL(blob);
-        setTicketDownloadUrl(pdfUrl);
-      } catch (pdfError) {
-        console.error('Erreur génération PDF:', pdfError);
-        // Don't fail the whole process if PDF generation fails
+        return;
       }
+
+      console.log('PDF generated successfully');
+      
+      // Create blob URL for download
+      const blob = new Blob([pdfResponse], { type: 'text/html' });
+      const pdfUrl = URL.createObjectURL(blob);
+      setTicketDownloadUrl(pdfUrl);
+
+      console.log('Download URL created:', pdfUrl);
 
       setIsSuccess(true);
       toast({
         title: "Réservation confirmée !",
-        description: `Votre ticket ${formData.ticketType} a été réservé avec succès${eventbriteOrderId ? ' sur Eventbrite' : ''}.`,
+        description: `Votre ticket ${formData.ticketType} a été réservé avec succès.`,
       });
 
       // Reset form
@@ -160,7 +178,7 @@ const EventbriteBooking = () => {
       console.error('Erreur:', error);
       toast({
         title: "Erreur",
-        description: "Une erreur inattendue s'est produite.",
+        description: "Une erreur inattendue s'est produite. Veuillez réessayer.",
         variant: "destructive",
       });
     } finally {

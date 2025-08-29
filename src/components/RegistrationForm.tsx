@@ -117,7 +117,7 @@ export const RegistrationForm = () => {
           <div className="space-y-2">
             <Label htmlFor="name" className="text-foreground font-medium">
               <User className="w-4 h-4 inline mr-2" />
-              Nom complet
+              Nom complet *
             </Label>
             <Input
               id="name"
@@ -126,7 +126,7 @@ export const RegistrationForm = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
-              className="glow-effect focus:shadow-glow transition-all duration-300"
+              className="border-primary/20 focus:border-primary glow-effect transition-all duration-300"
               placeholder="Votre nom complet"
             />
           </div>
@@ -134,7 +134,7 @@ export const RegistrationForm = () => {
           <div className="space-y-2">
             <Label htmlFor="email" className="text-foreground font-medium">
               <Mail className="w-4 h-4 inline mr-2" />
-              Email
+              Email *
             </Label>
             <Input
               id="email"
@@ -143,7 +143,7 @@ export const RegistrationForm = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="glow-effect focus:shadow-glow transition-all duration-300"
+              className="border-primary/20 focus:border-primary glow-effect transition-all duration-300"
               placeholder="votre.email@exemple.com"
             />
           </div>
@@ -151,7 +151,7 @@ export const RegistrationForm = () => {
           <div className="space-y-2">
             <Label htmlFor="phone" className="text-foreground font-medium">
               <Phone className="w-4 h-4 inline mr-2" />
-              Téléphone
+              Téléphone *
             </Label>
             <Input
               id="phone"
@@ -160,7 +160,7 @@ export const RegistrationForm = () => {
               value={formData.phone}
               onChange={handleInputChange}
               required
-              className="glow-effect focus:shadow-glow transition-all duration-300"
+              className="border-primary/20 focus:border-primary glow-effect transition-all duration-300"
               placeholder="+225 XX XX XX XX XX"
             />
           </div>
@@ -168,7 +168,7 @@ export const RegistrationForm = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full glow-effect bg-gradient-primary hover:shadow-glow text-lg py-6 font-semibold"
+            className="w-full bg-gradient-primary hover:opacity-90 text-primary-foreground font-semibold py-3"
           >
             {isLoading ? (
               <>
