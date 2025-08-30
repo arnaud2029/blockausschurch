@@ -50,27 +50,23 @@ All colors MUST be HSL for consistency.
     --input: 240 20% 10%;
     --ring: 285 100% 65%;
 
-    /* Ultra-modern gradients with premium feel */
-    --gradient-primary: linear-gradient(135deg, hsl(285 100% 65%) 0%, hsl(320 100% 60%) 25%, hsl(195 100% 55%) 50%, hsl(145 100% 55%) 75%, hsl(285 100% 65%) 100%);
+    /* Ultra-modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(285 100% 65%), hsl(320 100% 60%), hsl(195 100% 55%));
     --gradient-neon: linear-gradient(45deg, hsl(285 100% 65%), hsl(195 100% 55%));
     --gradient-cyber: linear-gradient(90deg, hsl(320 100% 60%), hsl(285 100% 65%), hsl(145 100% 55%));
-    --gradient-hero: radial-gradient(ellipse at center, hsl(285 100% 65% / 0.4) 0%, hsl(195 100% 55% / 0.3) 35%, transparent 70%);
+    --gradient-hero: radial-gradient(ellipse at center, hsl(285 100% 65% / 0.3) 0%, hsl(195 100% 55% / 0.2) 35%, transparent 70%);
     --gradient-mesh: conic-gradient(from 0deg at 50% 50%, hsl(285 100% 65%), hsl(320 100% 60%), hsl(195 100% 55%), hsl(145 100% 55%), hsl(285 100% 65%));
-    --gradient-rainbow: linear-gradient(90deg, hsl(285 100% 65%) 0%, hsl(320 100% 60%) 20%, hsl(0 100% 65%) 40%, hsl(45 100% 65%) 60%, hsl(145 100% 55%) 80%, hsl(195 100% 55%) 100%);
-    --gradient-aurora: linear-gradient(125deg, hsl(285 100% 65% / 0.8) 0%, hsl(195 100% 55% / 0.6) 25%, hsl(145 100% 55% / 0.4) 50%, hsl(320 100% 60% / 0.6) 75%, hsl(285 100% 65% / 0.8) 100%);
 
-    /* Next-gen animation colors with depth */
+    /* Next-gen animation colors */
     --glow-primary: 285 100% 80%;
     --glow-secondary: 195 100% 70%;
     --glow-accent: 320 100% 75%;
     --glow-tertiary: 145 100% 70%;
     
-    /* Ultra-premium shadows with multiple layers */
-    --shadow-neon: 0 0 50px hsl(var(--glow-primary) / 0.8), 0 0 100px hsl(var(--glow-secondary) / 0.4), 0 0 150px hsl(var(--glow-accent) / 0.2);
-    --shadow-cyber: 0 0 30px hsl(var(--glow-accent) / 0.7), 0 0 60px hsl(var(--glow-tertiary) / 0.4), 0 0 90px hsl(var(--glow-primary) / 0.2);
-    --shadow-intense: 0 0 80px hsl(var(--glow-primary) / 1), 0 0 120px hsl(var(--glow-secondary) / 0.6), 0 0 160px hsl(var(--glow-accent) / 0.3);
-    --shadow-premium: 0 25px 50px -12px hsl(240 30% 3% / 0.8), 0 0 80px hsl(var(--glow-primary) / 0.3);
-    --shadow-floating: 0 35px 60px -15px hsl(240 30% 3% / 0.9), 0 0 120px hsl(var(--glow-primary) / 0.4);
+    /* Dynamic shadows with multiple colors */
+    --shadow-neon: 0 0 50px hsl(var(--glow-primary) / 0.6), 0 0 100px hsl(var(--glow-secondary) / 0.3);
+    --shadow-cyber: 0 0 30px hsl(var(--glow-accent) / 0.5), 0 0 60px hsl(var(--glow-tertiary) / 0.3);
+    --shadow-intense: 0 0 80px hsl(var(--glow-primary) / 0.8), 0 0 120px hsl(var(--glow-secondary) / 0.4);
     --shadow-soft: 0 15px 35px -5px hsl(240 30% 3% / 0.8);
 
     --radius: 0.5rem;
@@ -256,90 +252,6 @@ All colors MUST be HSL for consistency.
     animation: scan 3s ease-in-out infinite;
     pointer-events: none;
   }
-  
-  /* Premium Effects */
-  .premium-glow {
-    box-shadow: var(--shadow-premium);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .premium-glow:hover {
-    box-shadow: var(--shadow-floating);
-    transform: translateY(-8px) scale(1.03);
-  }
-  
-  .aurora-text {
-    background: var(--gradient-aurora);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: aurora-flow 5s ease-in-out infinite;
-  }
-  
-  .rainbow-border {
-    position: relative;
-    border-radius: 1.5rem;
-    padding: 2px;
-    background: var(--gradient-rainbow);
-    background-size: 300% 300%;
-    animation: rainbow-flow 4s linear infinite;
-  }
-  
-  .rainbow-border::before {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: hsl(var(--card));
-    border-radius: calc(1.5rem - 2px);
-    z-index: -1;
-  }
-  
-  .morphing-card {
-    background: linear-gradient(135deg, 
-      hsl(var(--card)) 0%, 
-      hsl(var(--primary) / 0.2) 15%,
-      hsl(var(--secondary) / 0.15) 30%,
-      hsl(var(--accent) / 0.15) 45%,
-      hsl(var(--tertiary) / 0.1) 60%,
-      hsl(var(--primary) / 0.1) 75%,
-      hsl(var(--card)) 100%);
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .morphing-card::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: var(--gradient-rainbow);
-    background-size: 200% 200%;
-    animation: rainbow-flow 6s linear infinite;
-    border-radius: inherit;
-    z-index: -1;
-  }
-  
-  .floating-element {
-    animation: float-smooth 6s ease-in-out infinite;
-  }
-  
-  .parallax-bg {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
-  .text-shadow-neon {
-    text-shadow: 
-      0 0 10px hsl(var(--glow-primary) / 0.8),
-      0 0 20px hsl(var(--glow-primary) / 0.6),
-      0 0 30px hsl(var(--glow-primary) / 0.4),
-      0 0 40px hsl(var(--glow-primary) / 0.2);
-  }
-}
 }
 
 /* Ultra-Dynamic Keyframes */
@@ -456,44 +368,5 @@ All colors MUST be HSL for consistency.
   }
   80% {
     transform: translate(2px, -2px);
-  }
-}
-
-@keyframes aurora-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-    filter: saturate(1);
-  }
-  33% {
-    background-position: 50% 0%;
-    filter: saturate(1.2);
-  }
-  66% {
-    background-position: 100% 50%;
-    filter: saturate(0.8);
-  }
-}
-
-@keyframes rainbow-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes float-smooth {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-20px) rotate(2deg);
-  }
-  66% {
-    transform: translateY(-10px) rotate(-1deg);
   }
 }

@@ -77,16 +77,12 @@ export default {
 				'gradient-neon': 'var(--gradient-neon)',
 				'gradient-cyber': 'var(--gradient-cyber)',
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-mesh': 'var(--gradient-mesh)',
-				'gradient-rainbow': 'var(--gradient-rainbow)',
-				'gradient-aurora': 'var(--gradient-aurora)'
+				'gradient-mesh': 'var(--gradient-mesh)'
 			},
 			boxShadow: {
 				'neon': 'var(--shadow-neon)',
 				'cyber': 'var(--shadow-cyber)',
 				'intense': 'var(--shadow-intense)',
-				'premium': 'var(--shadow-premium)',
-				'floating': 'var(--shadow-floating)',
 				'soft': 'var(--shadow-soft)'
 			},
 			borderRadius: {
@@ -235,10 +231,7 @@ export default {
 				'scan': 'scan 3s ease-in-out infinite',
 				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
 				'glitch': 'glitch 0.3s ease-in-out infinite',
-				'fade-in-up': 'fade-in-up 0.6s ease-out',
-				'aurora-flow': 'aurora-flow 5s ease-in-out infinite',
-				'rainbow-flow': 'rainbow-flow 4s linear infinite',
-				'float-smooth': 'float-smooth 6s ease-in-out infinite'
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
 			}
 		}
 	},
