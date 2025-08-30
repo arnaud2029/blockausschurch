@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Ticket, CreditCard, Users, Check, Loader2, Download } from 'lucide-react';
+import { Ticket, CreditCard, Users, Check, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
@@ -26,7 +26,6 @@ const EventbriteBooking = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [ticketDownloadUrl, setTicketDownloadUrl] = useState<string | null>(null);
 
   const ticketPrices = {
     standard: 0, // Gratuit
@@ -60,9 +59,6 @@ const EventbriteBooking = () => {
     setIsLoading(true);
 
     try {
-      console.log('Starting ticket submission...', formData);
-
-      // First, save ticket data to database
       const ticketData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -73,16 +69,12 @@ const EventbriteBooking = () => {
         payment_status: calculateTotal() === 0 ? 'completed' : 'pending',
       };
 
-      console.log('Inserting ticket data:', ticketData);
-
-      const { data: insertedTicket, error } = await supabase
+      const { error } = await supabase
         .from('event_tickets')
-        .insert([ticketData])
-        .select()
-        .single();
+        .insert([ticketData]);
 
       if (error) {
-        console.error('Database insertion error:', error);
+        console.error('Erreur insertion ticket:', error);
         toast({
           title: "Erreur de réservation",
           description: "Une erreur s'est produite lors de la réservation. Veuillez réessayer.",
@@ -90,74 +82,6 @@ const EventbriteBooking = () => {
         });
         return;
       }
-
-      console.log('Ticket inserted successfully:', insertedTicket);
-
-      // For paid tickets, try Eventbrite integration (optional)
-      let eventbriteOrderId = null;
-      if (calculateTotal() > 0) {
-        try {
-          const { data: eventbriteResponse, error: eventbriteError } = await supabase.functions.invoke('eventbrite-integration', {
-            body: {
-              action: 'create_order',
-              event_id: 'YOUR_EVENTBRITE_EVENT_ID', // Configure this with real event ID
-              name: formData.name.trim(),
-              email: formData.email.trim(),
-              phone: formData.phone.trim() || undefined,
-              ticket_class_id: formData.ticketType,
-              quantity: formData.quantity
-            }
-          });
-
-          if (eventbriteResponse?.success) {
-            eventbriteOrderId = eventbriteResponse.order_id;
-            // Update ticket with Eventbrite order ID
-            await supabase
-              .from('event_tickets')
-              .update({ eventbrite_order_id: eventbriteOrderId })
-              .eq('id', insertedTicket.id);
-          }
-        } catch (eventbriteError) {
-          console.warn('Eventbrite integration failed, but ticket is still reserved:', eventbriteError);
-          // Continue with local ticket generation
-        }
-      }
-
-      // Generate ticket PDF for all tickets
-      const ticketPdfData = {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim() || '',
-        ticket_type: formData.ticketType,
-        quantity: formData.quantity,
-        total_amount: calculateTotal(),
-        ticket_id: insertedTicket.id
-      };
-
-      console.log('Generating PDF with data:', ticketPdfData);
-
-      const { data: pdfResponse, error: pdfError } = await supabase.functions.invoke('generate-ticket-pdf', {
-        body: ticketPdfData
-      });
-
-      if (pdfError) {
-        console.error('PDF generation error:', pdfError);
-        toast({
-          title: "Erreur génération PDF",
-          description: "Le ticket a été réservé mais le PDF n'a pas pu être généré.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      console.log('PDF generated successfully');
-      
-      // Create blob URL for download
-      const blob = new Blob([pdfResponse], { type: 'text/html' });
-      const pdfUrl = URL.createObjectURL(blob);
-      setTicketDownloadUrl(pdfUrl);
-
-      console.log('Download URL created:', pdfUrl);
 
       setIsSuccess(true);
       toast({
@@ -178,7 +102,7 @@ const EventbriteBooking = () => {
       console.error('Erreur:', error);
       toast({
         title: "Erreur",
-        description: "Une erreur inattendue s'est produite. Veuillez réessayer.",
+        description: "Une erreur inattendue s'est produite.",
         variant: "destructive",
       });
     } finally {
@@ -188,7 +112,6 @@ const EventbriteBooking = () => {
 
   const startNewBooking = () => {
     setIsSuccess(false);
-    setTicketDownloadUrl(null);
     setFormData({
       name: '',
       email: '',
@@ -210,30 +133,9 @@ const EventbriteBooking = () => {
               <h3 className="text-xl font-bold gradient-text mb-2">
                 Réservation Confirmée !
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground">
                 Votre ticket a été réservé avec succès. Vous recevrez bientôt un email de confirmation.
               </p>
-              {ticketDownloadUrl && (
-                <div className="hero-card p-4 rounded-lg mb-4">
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <Download className="w-5 h-5 text-accent" />
-                    <span className="font-medium">Votre ticket est prêt !</span>
-                  </div>
-                  <Button 
-                    onClick={() => {
-                      const link = document.createElement('a');
-                      link.href = ticketDownloadUrl;
-                      link.download = `ticket-${Date.now()}.html`;
-                      link.click();
-                    }}
-                    variant="outline" 
-                    className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Télécharger le ticket
-                  </Button>
-                </div>
-              )}
             </div>
             <Button 
               onClick={startNewBooking} 

@@ -33,10 +33,6 @@ export default {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
-				festive: {
-					DEFAULT: 'hsl(var(--festive))',
-					foreground: 'hsl(var(--festive-foreground))'
-				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
@@ -72,13 +68,11 @@ export default {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-secondary': 'var(--gradient-secondary)',
 				'gradient-accent': 'var(--gradient-accent)',
-				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-festive': 'var(--gradient-festive)'
+				'gradient-hero': 'var(--gradient-hero)'
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
 				'accent-glow': 'var(--shadow-accent-glow)',
-				'festive-glow': 'var(--shadow-festive)',
 				'soft': 'var(--shadow-soft)'
 			},
 			borderRadius: {
@@ -136,52 +130,6 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
-				},
-				'dance': {
-					'0%, 100%': {
-						transform: 'translateY(0px) rotate(0deg)'
-					},
-					'25%': {
-						transform: 'translateY(-10px) rotate(2deg)'
-					},
-					'50%': {
-						transform: 'translateY(0px) rotate(0deg)'
-					},
-					'75%': {
-						transform: 'translateY(-5px) rotate(-2deg)'
-					}
-				},
-				'celebration-bounce': {
-					'0%, 20%, 50%, 80%, 100%': {
-						transform: 'translateY(0) scale(1)'
-					},
-					'40%': {
-						transform: 'translateY(-15px) scale(1.1)'
-					},
-					'60%': {
-						transform: 'translateY(-7px) scale(1.05)'
-					}
-				},
-				'festive-pulse': {
-					'0%, 100%': {
-						transform: 'scale(1)',
-						boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)'
-					},
-					'50%': {
-						transform: 'scale(1.05)',
-						boxShadow: '0 0 0 10px hsl(var(--primary) / 0)'
-					}
-				},
-				'wave': {
-					'0%, 100%': {
-						transform: 'rotate(0deg)'
-					},
-					'25%': {
-						transform: 'rotate(10deg)'
-					},
-					'75%': {
-						transform: 'rotate(-10deg)'
-					}
 				}
 			},
 			animation: {
@@ -190,11 +138,7 @@ export default {
 				'float': 'float 20s infinite linear',
 				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
 				'shimmer': 'shimmer 2s linear infinite',
-				'fade-in-up': 'fade-in-up 0.6s ease-out',
-				'dance': 'dance 4s infinite ease-in-out',
-				'celebration-bounce': 'celebration-bounce 2s infinite ease-in-out',
-				'festive-pulse': 'festive-pulse 3s infinite ease-in-out',
-				'wave': 'wave 2s infinite ease-in-out'
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
 			}
 		}
 	},
