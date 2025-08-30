@@ -2,60 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* After Church Blockhauss Design System - Colors inspired by event imagery
+/* Modern Gen-Z Design System - Ultra Dynamic & Futuristic
 All colors MUST be HSL for consistency.
 */
 
 @layer base {
   :root {
-    /* Core brand colors - inspired by the event imagery */
-    --background: 220 25% 5%;
-    --foreground: 0 0% 100%;
+    /* Core modern colors - dark cyberpunk aesthetic */
+    --background: 240 30% 3%;
+    --foreground: 0 0% 98%;
 
-    --card: 260 40% 8%;
-    --card-foreground: 0 0% 100%;
+    --card: 240 20% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 260 40% 8%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 240 20% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary: Rich purple/magenta from the event branding */
-    --primary: 280 85% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 280 100% 75%;
+    /* Primary: Electric neon purple */
+    --primary: 285 100% 65%;
+    --primary-foreground: 240 30% 3%;
+    --primary-glow: 285 100% 80%;
+    --primary-electric: 285 100% 70%;
 
-    /* Secondary: Deep blue accent */
-    --secondary: 220 40% 15%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary: Neon cyan */
+    --secondary: 195 100% 55%;
+    --secondary-foreground: 240 30% 3%;
+    --secondary-glow: 195 100% 70%;
 
     /* Muted tones */
-    --muted: 260 20% 12%;
-    --muted-foreground: 220 15% 65%;
+    --muted: 240 15% 12%;
+    --muted-foreground: 240 10% 70%;
 
-    /* Accent: Golden yellow for highlights */
-    --accent: 45 95% 58%;
-    --accent-foreground: 220 25% 5%;
+    /* Accent: Electric pink */
+    --accent: 320 100% 60%;
+    --accent-foreground: 240 30% 3%;
+    --accent-glow: 320 100% 75%;
 
-    --destructive: 0 75% 60%;
+    /* Tertiary: Neon green */
+    --tertiary: 145 100% 55%;
+    --tertiary-foreground: 240 30% 3%;
+    --tertiary-glow: 145 100% 70%;
+
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 260 30% 18%;
-    --input: 260 30% 18%;
-    --ring: 280 85% 60%;
+    --border: 240 20% 15%;
+    --input: 240 20% 10%;
+    --ring: 285 100% 65%;
 
-    /* Custom gradients for After Church Blockhauss */
-    --gradient-primary: linear-gradient(135deg, hsl(280 85% 60%), hsl(320 80% 65%));
-    --gradient-secondary: linear-gradient(45deg, hsl(220 40% 15%), hsl(260 40% 20%));
-    --gradient-accent: linear-gradient(90deg, hsl(45 95% 58%), hsl(35 85% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(280 85% 60%) 0%, hsl(260 70% 45%) 35%, hsl(220 60% 25%) 100%);
+    /* Ultra-modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(285 100% 65%), hsl(320 100% 60%), hsl(195 100% 55%));
+    --gradient-neon: linear-gradient(45deg, hsl(285 100% 65%), hsl(195 100% 55%));
+    --gradient-cyber: linear-gradient(90deg, hsl(320 100% 60%), hsl(285 100% 65%), hsl(145 100% 55%));
+    --gradient-hero: radial-gradient(ellipse at center, hsl(285 100% 65% / 0.3) 0%, hsl(195 100% 55% / 0.2) 35%, transparent 70%);
+    --gradient-mesh: conic-gradient(from 0deg at 50% 50%, hsl(285 100% 65%), hsl(320 100% 60%), hsl(195 100% 55%), hsl(145 100% 55%), hsl(285 100% 65%));
 
-    /* Animation and effect colors */
-    --glow-primary: 280 100% 75%;
-    --glow-accent: 45 100% 70%;
+    /* Next-gen animation colors */
+    --glow-primary: 285 100% 80%;
+    --glow-secondary: 195 100% 70%;
+    --glow-accent: 320 100% 75%;
+    --glow-tertiary: 145 100% 70%;
     
-    /* Shadows with brand colors */
-    --shadow-glow: 0 0 40px hsl(var(--glow-primary) / 0.4);
-    --shadow-accent-glow: 0 0 30px hsl(var(--glow-accent) / 0.3);
-    --shadow-soft: 0 10px 30px -10px hsl(280 50% 20% / 0.5);
+    /* Dynamic shadows with multiple colors */
+    --shadow-neon: 0 0 50px hsl(var(--glow-primary) / 0.6), 0 0 100px hsl(var(--glow-secondary) / 0.3);
+    --shadow-cyber: 0 0 30px hsl(var(--glow-accent) / 0.5), 0 0 60px hsl(var(--glow-tertiary) / 0.3);
+    --shadow-intense: 0 0 80px hsl(var(--glow-primary) / 0.8), 0 0 120px hsl(var(--glow-secondary) / 0.4);
+    --shadow-soft: 0 15px 35px -5px hsl(240 30% 3% / 0.8);
 
     --radius: 0.5rem;
 
@@ -125,20 +137,23 @@ All colors MUST be HSL for consistency.
   }
 }
 
-/* Custom animations and effects for After Church Blockhauss */
+/* Ultra-Modern Cyber Effects & Animations */
 @layer components {
-  .glow-effect {
-    box-shadow: var(--shadow-glow);
+  .cyber-glow {
+    box-shadow: var(--shadow-neon);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+  
+  .cyber-glow:hover {
+    box-shadow: var(--shadow-intense);
+    transform: translateY(-4px) scale(1.02);
+    border-color: hsl(var(--primary) / 0.6);
+  }
+  
+  .neon-glow {
+    box-shadow: var(--shadow-cyber);
     transition: all 0.3s ease;
-  }
-  
-  .glow-effect:hover {
-    box-shadow: 0 0 60px hsl(var(--glow-primary) / 0.6);
-    transform: translateY(-2px);
-  }
-  
-  .accent-glow {
-    box-shadow: var(--shadow-accent-glow);
   }
   
   .gradient-text {
@@ -146,57 +161,212 @@ All colors MUST be HSL for consistency.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradient-shift 3s ease-in-out infinite;
   }
   
-  .floating-dots {
+  .cyber-text {
+    background: var(--gradient-neon);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px hsl(var(--glow-primary) / 0.5);
+  }
+  
+  .floating-particles {
     position: relative;
     overflow: hidden;
   }
   
-  .floating-dots::before {
+  .floating-particles::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(circle, hsl(var(--primary-glow) / 0.3) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: float 20s infinite linear;
+    background-image: 
+      radial-gradient(circle at 20% 50%, hsl(var(--glow-primary) / 0.4) 2px, transparent 2px),
+      radial-gradient(circle at 80% 20%, hsl(var(--glow-secondary) / 0.3) 1px, transparent 1px),
+      radial-gradient(circle at 40% 80%, hsl(var(--glow-accent) / 0.35) 1.5px, transparent 1.5px);
+    background-size: 60px 60px, 40px 40px, 80px 80px;
+    animation: cyber-float 25s infinite linear, pulse-glow 4s ease-in-out infinite;
     pointer-events: none;
   }
   
-  .hero-card {
+  .cyber-card {
     background: linear-gradient(135deg, 
       hsl(var(--card)) 0%, 
-      hsl(var(--primary) / 0.1) 50%, 
+      hsl(var(--primary) / 0.15) 25%,
+      hsl(var(--secondary) / 0.1) 50%,
+      hsl(var(--accent) / 0.1) 75%,
       hsl(var(--card)) 100%);
-    border: 1px solid hsl(var(--primary) / 0.2);
-    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--primary) / 0.3);
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cyber-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--gradient-mesh);
+    opacity: 0.1;
+    animation: mesh-rotate 15s linear infinite;
+    pointer-events: none;
+  }
+  
+  .holographic {
+    background: linear-gradient(
+      45deg,
+      hsl(var(--primary) / 0.2) 0%,
+      hsl(var(--secondary) / 0.2) 25%,
+      hsl(var(--accent) / 0.2) 50%,
+      hsl(var(--tertiary) / 0.2) 75%,
+      hsl(var(--primary) / 0.2) 100%
+    );
+    background-size: 200% 200%;
+    animation: hologram-shift 4s ease-in-out infinite;
+    border: 1px solid hsl(var(--primary) / 0.4);
+  }
+  
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--glow-primary) / 0.4) 50%,
+      transparent 100%
+    );
+    animation: scan 3s ease-in-out infinite;
+    pointer-events: none;
   }
 }
 
-@keyframes float {
+/* Ultra-Dynamic Keyframes */
+@keyframes cyber-float {
   0% {
     transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-25vh) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-50vh) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-75vh) rotate(270deg);
   }
   100% {
     transform: translateY(-100vh) rotate(360deg);
   }
 }
 
-@keyframes glow-pulse {
+@keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+    opacity: 0.4;
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 40px hsl(var(--primary) / 0.8);
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 
-@keyframes shimmer {
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes mesh-rotate {
   0% {
-    background-position: -200% 0;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
   }
   100% {
-    background-position: 200% 0;
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes hologram-shift {
+  0%, 100% {
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    background-position: 100% 0%;
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    background-position: 100% 100%;
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg);
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.6),
+      0 0 40px hsl(var(--secondary) / 0.4),
+      0 0 60px hsl(var(--accent) / 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px hsl(var(--primary) / 0.9),
+      0 0 80px hsl(var(--secondary) / 0.6),
+      0 0 120px hsl(var(--accent) / 0.5);
+  }
+}
+
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
   }
 }

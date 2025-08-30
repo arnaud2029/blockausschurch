@@ -30,14 +30,14 @@ const Index = () => {
           {/* Header Section */}
           <header className="text-center mb-16 animate-fade-in-up">
             <div className="mb-6">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold gradient-text mb-6 leading-tight">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold cyber-text mb-6 leading-tight animate-neon-pulse">
                 AFTER CHURCH
-                <span className="block text-accent">BLOCKHAUSS</span>
+                <span className="block gradient-text animate-glitch">BLOCKHAUSS</span>
               </h1>
-              <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full mb-8"></div>
+              <div className="w-32 h-2 bg-gradient-neon mx-auto rounded-full mb-8 shadow-neon animate-pulse-glow"></div>
             </div>
             
-            <p className="text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto leading-relaxed font-medium scan-line">
               Un rendez-vous mensuel pour se retrouver, partager et grandir ensemble 
               dans un esprit d'unité et d'amour.
             </p>
@@ -46,23 +46,23 @@ const Index = () => {
           {/* Event Details */}
           <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="grid md:grid-cols-3 gap-6 mb-12">
-              <div className="text-center hero-card p-6 rounded-2xl glow-effect">
-                <Calendar className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Quand ?</h3>
+              <div className="text-center cyber-card p-6 rounded-2xl cyber-glow holographic">
+                <Calendar className="w-12 h-12 text-accent mx-auto mb-4 animate-neon-pulse" />
+                <h3 className="text-xl font-bold mb-2 gradient-text">Quand ?</h3>
                 <p className="text-muted-foreground">31 Août 2025</p>
                 <p className="text-muted-foreground">08h00</p>
               </div>
               
-              <div className="text-center hero-card p-6 rounded-2xl glow-effect">
-                <MapPin className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Où ?</h3>
+              <div className="text-center cyber-card p-6 rounded-2xl cyber-glow holographic" style={{ animationDelay: '0.1s' }}>
+                <MapPin className="w-12 h-12 text-secondary mx-auto mb-4 animate-neon-pulse" />
+                <h3 className="text-xl font-bold mb-2 gradient-text">Où ?</h3>
                 <p className="text-muted-foreground">Cocody Blockhauss</p>
                 <p className="text-muted-foreground">Au bord de l'eau</p>
               </div>
               
-              <div className="text-center hero-card p-6 rounded-2xl glow-effect">
-                <Users className="w-12 h-12 text-accent mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Qui ?</h3>
+              <div className="text-center cyber-card p-6 rounded-2xl cyber-glow holographic" style={{ animationDelay: '0.2s' }}>
+                <Users className="w-12 h-12 text-tertiary mx-auto mb-4 animate-neon-pulse" />
+                <h3 className="text-xl font-bold mb-2 gradient-text">Qui ?</h3>
                 <p className="text-muted-foreground">Tous les cœurs</p>
                 <p className="text-muted-foreground">unis par l'amour</p>
               </div>
@@ -72,11 +72,11 @@ const Index = () => {
           {/* Countdown Section */}
           <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
-                <Sparkles className="w-8 h-8 inline mr-3" />
+              <h2 className="text-3xl md:text-4xl font-bold cyber-text mb-4 animate-neon-pulse">
+                <Sparkles className="w-8 h-8 inline mr-3 animate-glitch" />
                 Compte à rebours
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-muted-foreground scan-line">
                 Plus que quelques instants avant ce moment magique
               </p>
             </div>
@@ -85,8 +85,8 @@ const Index = () => {
 
           {/* Mission Section */}
           <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <div className="hero-card p-8 md:p-12 rounded-3xl text-center">
-              <Heart className="w-16 h-16 text-accent mx-auto mb-6 animate-glow-pulse" />
+            <div className="cyber-card p-8 md:p-12 rounded-3xl text-center cyber-glow holographic">
+              <Heart className="w-16 h-16 text-accent mx-auto mb-6 animate-neon-pulse" />
               <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-6">
                 Notre Mission
               </h2>
@@ -101,11 +101,11 @@ const Index = () => {
           {/* Ticket Booking Section */}
           <section className="animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold gradient-text mb-4">
-                <Sparkles className="w-8 h-8 inline mr-3" />
+              <h2 className="text-3xl md:text-4xl font-bold cyber-text mb-4 animate-neon-pulse">
+                <Sparkles className="w-8 h-8 inline mr-3 animate-glitch" />
                 Réservez votre place
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-muted-foreground scan-line">
                 Sécurisez votre participation à cet événement unique
               </p>
             </div>
@@ -129,11 +129,11 @@ const Index = () => {
 
           {/* Footer */}
           <footer className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: '1s' }}>
-            <div className="hero-card p-6 rounded-2xl">
+            <div className="cyber-card p-6 rounded-2xl neon-glow">
               <p className="text-muted-foreground mb-2">
                 Organisé avec ❤️ par
               </p>
-              <p className="text-xl font-bold gradient-text">
+              <p className="text-xl font-bold cyber-text">
                 Le Môgô De GOD
               </p>
             </div>
